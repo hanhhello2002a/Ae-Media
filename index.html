@@ -13,13 +13,6 @@
             justify-content: center;
             margin-bottom: 20px;
         }
-    <style>
-        /* CSS cho tab */
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
 
         .tab {
             padding: 15px 20px;
@@ -178,50 +171,53 @@
 
             <h3>Dịch Vụ Chính:</h3>
             <p><strong>Cung Cấp Nội Dung Video và Audio:</strong> AE Media cung cấp một loạt các nội dung video và audio phong phú, đa dạng từ các thể loại như phim ngắn, chương trình truyền hình, quảng cáo, âm nhạc, và podcast. Đội ngũ sản xuất chuyên nghiệp của chúng tôi luôn sẵn lòng hợp tác để tạo ra những sản phẩm chất lượng cao, phản ánh sự sáng tạo và độc đáo của mỗi dự án.</p>
-            <p><strong>Dịch Vụ Cho Thuê Diễn Viên và MC:</strong> AE Media cung cấp dịch vụ cho thuê diễn viên và MC có kinh nghiệm, tài năng để hỗ trợ các sự kiện trực tiếp, ghi hình, chương trình truyền hình và các dự án truyền thông khác. Đội ngũ diễn viên và MC của chúng tôi không chỉ chuyên nghiệp mà còn linh hoạt, sẵn sàng đáp ứng mọi yêu cầu của khách hàng.</p>
+            <p><strong>Dịch Vụ Cho Thuê Diễn Viên và MC:</strong> AE Media cung cấp dịch vụ cho thuê diễn viên, MC chuyên nghiệp cho các sự kiện, chương trình truyền hình, quảng cáo, và các dự án khác. Đội ngũ diễn viên và MC của chúng tôi được đào tạo bài bản và có kinh nghiệm, đảm bảo mang đến sự hài lòng cho khách hàng.</p>
         </div>
     </section>
 
     <section id="video" class="tab-content">
-        <h2>Danh mục Video</h2>
-        <iframe src="https://drive.google.com/file/d/1nB5CW6v6c8g9jP3B7oUX28LQr5q5V00j/preview" width="640" height="480" allow="autoplay"></iframe>
+        <h2>Danh Mục Video</h2>
+        <p>Đây là nơi bạn có thể tìm thấy những video mới nhất từ AE Media. Chúng tôi luôn cập nhật các sản phẩm mới, hãy theo dõi để không bỏ lỡ bất kỳ nội dung nào!</p>
+        <!-- Thêm danh sách video ở đây -->
     </section>
 
     <section id="audio" class="tab-content">
-        <h2>Danh mục Audio</h2>
-        <iframe src="https://drive.google.com/file/d/3Zx7y/preview" width="640" height="480" allow="autoplay"></iframe>
+        <h2>Danh Mục Audio</h2>
+        <p>Đón chào bạn đến với danh mục audio của AE Media, nơi bạn có thể thưởng thức những bản nhạc và podcast chất lượng cao!</p>
+        <!-- Thêm danh sách audio ở đây -->
     </section>
 
     <section id="certificates" class="tab-content">
-        <h2>Chứng chỉ</h2>
-        <p>Công ty AE Media tự hào sở hữu nhiều chứng chỉ về chất lượng và uy tín trong ngành công nghiệp truyền thông.</p>
+        <h2>Chứng Chỉ</h2>
+        <p>AE Media đã nhận được nhiều chứng chỉ và giải thưởng cho những đóng góp trong lĩnh vực truyền thông. Hãy xem qua danh sách các chứng chỉ của chúng tôi!</p>
+        <!-- Thêm danh sách chứng chỉ ở đây -->
     </section>
 
     <footer>
-        <p>&copy; 2024 AE Media. Mọi quyền được bảo lưu.</p>
+        <p>&copy; 2024 AE Media. Bảo lưu mọi quyền.</p>
         <div class="footer-info">
-            <p><strong>Email:</strong> contact@aemedia.com</p>
-            <p><strong>Địa chỉ:</strong> 123 Đường ABC, Quận 1, TP. Hồ Chí Minh</p>
-            <p><strong>Số điện thoại:</strong> 0123 456 789</p>
+            <strong>Liên hệ:</strong> hanhhello14@gmail.com <br>
+            <strong>Số điện thoại:</strong> 0877750444
         </div>
     </footer>
 
     <script>
-        function showTab(tabId) {
-            // Ẩn tất cả các nội dung tab
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
+        function showTab(tabName) {
+            // Ẩn tất cả các tab
+            var tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(function(tab) {
+                tab.classList.remove('active');
+            });
 
-            // Hiển thị tab đã chọn
-            const activeTab = document.getElementById(tabId);
-            activeTab.classList.add('active');
+            // Bỏ lớp active cho tất cả các tab
+            var tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(function(tabButton) {
+                tabButton.classList.remove('active');
+            });
 
-            // Xử lý giao diện tab
-            const tabButtons = document.querySelectorAll('.tab');
-            tabButtons.forEach(button => button.classList.remove('active'));
-
-            // Đánh dấu tab hiện tại
-            event.target.classList.add('active');
+            // Hiện tab được chọn
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
         }
     </script>
 </body>
