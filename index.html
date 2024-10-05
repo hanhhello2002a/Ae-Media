@@ -470,6 +470,22 @@
             // Hiển thị danh sách video
             document.getElementById('video-list').style.display = 'flex';
         }
+	      // Lấy danh sách video từ localStorage
+        let videoList = JSON.parse(localStorage.getItem('videoList')) || [];
+
+        // Hàm hiển thị video trên trang chính
+        function displayVideos() {
+            const videoDisplayElement = document.getElementById('videoDisplay');
+            videoDisplayElement.innerHTML = '';
+            videoList.forEach(video => {
+                const li = document.createElement('li');
+                li.textContent = `${video.title} - ${video.category} (${video.url})`;
+                videoDisplayElement.appendChild(li);
+            });
+        }
+
+        // Hiển thị video khi trang được tải
+        displayVideos();
     </script>
 </body>
 </html>
