@@ -7,10 +7,12 @@ function displayVideos() {
     videoListElement.innerHTML = '';
     videoList.forEach((video, index) => {
         const li = document.createElement('li');
-        li.textContent = video;
+        li.textContent = `${video.title} - ${video.category} (${video.url})`;
+        
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Xóa';
         deleteButton.onclick = () => deleteVideo(index);
+        
         li.appendChild(deleteButton);
         videoListElement.appendChild(li);
     });
@@ -19,9 +21,15 @@ function displayVideos() {
 // Hàm thêm video
 document.getElementById('addVideoForm').addEventListener('submit', (e) => {
     e.preventDefault();
+    
+    const videoTitle = document.getElementById('videoTitle').value;
     const videoUrl = document.getElementById('videoUrl').value;
-    videoList.push(videoUrl);
+    const category = document.getElementById('category').value;
+
+    // Thêm video vào danh sách
+    videoList.push({ title: videoTitle, url: videoUrl, category: category });
     localStorage.setItem('videoList', JSON.stringify(videoList));
+    
     displayVideos();
     document.getElementById('addVideoForm').reset();
 });
