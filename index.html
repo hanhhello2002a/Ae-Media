@@ -283,7 +283,11 @@
         <div id="entertainment-videos" class="video-item">
             <h3>Video Giải Trí</h3>
             <div class="video-container">
-		    <script>
+		    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    <button onclick="copyVideoLink('https://www.youtube.com/watch?v=VIDEO_ID')">Sao chép liên kết</button>
+</div>
+
+<script>
 function copyVideoLink(url) {
     navigator.clipboard.writeText(url).then(() => {
         alert("Đã sao chép liên kết: " + url);
