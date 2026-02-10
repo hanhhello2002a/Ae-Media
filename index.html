@@ -1,98 +1,140 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập Admin và Nhân viên</title>
-    <style>
-        /* CSS - Tùy chỉnh giao diện */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .login-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #45a049;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Tạo hàng loạt Tên & Ngày sinh</title>
+<style>
+body{
+  background:#111;
+  color:#0f0;
+  font-family:monospace;
+  padding:20px;
+}
+input, select, button{
+  background:#000;
+  color:#0f0;
+  border:1px solid #0f0;
+  padding:6px 10px;
+  margin:4px;
+  cursor:pointer;
+}
+button:hover{
+  background:#0f0;
+  color:#000;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+}
+td,th{
+  border:1px solid #0f0;
+  padding:6px;
+}
+textarea{
+  width:100%;
+  height:200px;
+  background:#000;
+  color:#0f0;
+  margin-top:10px;
+}
+</style>
 </head>
 <body>
 
-    <div class="login-container">
-        <h2>Đăng Nhập</h2>
-        <label for="key">Nhập Key:</label>
-        <input type="text" id="key" placeholder="Nhập key admin hoặc nhân viên">
-        
-        <button class="btn" onclick="login()">Đăng nhập</button>
-    </div>
+<h2>🔹 Tạo hàng loạt Họ tên + Ngày sinh</h2>
 
-    <script>
-        // Các key mẫu
-        const adminKey = '1234567890admin';  // Key admin
-        const staffKey = '0987654321staff';  // Key nhân viên
+Số lượng:
+<input type="number" id="count" value="100"><br>
 
-        function login() {
-            const key = document.getElementById('key').value;
+Năm sinh từ:
+<input type="number" id="yearFrom" value="1990">
+đến:
+<input type="number" id="yearTo" value="2005"><br>
 
-            // Kiểm tra key và phân loại người dùng
-            if (key === adminKey) {
-                alert('Chào mừng Admin!');
-                window.location.href = 'admin.html'; // Chuyển hướng đến trang admin
-            } else if (key === staffKey) {
-                alert('Chào mừng Nhân viên!');
-                window.location.href = 'staff.html'; // Chuyển hướng đến trang nhân viên
-            } else if (key.includes('admin')) {  // Kiểm tra xem key có chứa "admin"
-                alert('Chào mừng Admin!');
-                window.location.href = 'admin.html'; // Chuyển hướng đến trang admin
-            } else if (key.includes('staff')) {  // Kiểm tra xem key có chứa "staff"
-                alert('Chào mừng Nhân viên!');
-                window.location.href = 'staff.html'; // Chuyển hướng đến trang nhân viên
-            } else {
-                alert('Key không hợp lệ!');
-            }
-        }
-    </script>
+Giới tính:
+<select id="gender">
+  <option value="female">Nữ</option>
+  <option value="male">Nam</option>
+  <option value="both">Nam + Nữ</option>
+</select>
+<br>
+
+<button onclick="generate()">TẠO DỮ LIỆU</button>
+<button onclick="copyData()">📋 COPY</button>
+
+<table id="table">
+<thead>
+<tr><th>Họ tên</th><th>Ngày sinh</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<h3>📋 Dữ liệu để dán Excel</h3>
+<textarea id="output"></textarea>
+
+<script>
+// Danh sách họ (mở rộng)
+const ho = [
+"Nguyễn","Trần","Lê","Phạm","Hoàng","Vũ","Võ","Đặng","Bùi","Đỗ",
+"Hồ","Ngô","Dương","Lý","Đinh","Phan","Tạ","Mai","Tô","Châu",
+"Thái","Cao","Quách","Lưu","Hứa","Triệu","La","Tăng","Kim","Mạc"
+];
+
+// Tên nữ
+const tenNu = [
+"Lan","Hoa","Hương","Mai","Thảo","Nga","Dung","Hạnh","Yến","Tuyết",
+"Hiền","Vân","Trang","Linh","Ngân","Nhung","Oanh","Loan","Phương","Trâm",
+"Kim","Ánh","Vy","My","Nhi","Uyên","Ngọc","Chi","Thủy","Diệp"
+];
+
+// Tên nam
+const tenNam = [
+"Anh","Tuấn","Hùng","Dũng","Mạnh","Thắng","Phúc","Long","Quân","Đạt",
+"Khánh","Nam","Hải","Phong","Hoàng","Minh","Khoa","Tài","Sơn","Vinh",
+"Toàn","Bình","Hiếu","Lộc","Thịnh","Tú","Cường","Đức","Trung","Việt"
+];
+
+function rand(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function generate(){
+  let n = +count.value;
+  let y1 = +yearFrom.value;
+  let y2 = +yearTo.value;
+  let g = gender.value;
+
+  let tbody = document.querySelector("#table tbody");
+  let text = "";
+  tbody.innerHTML = "";
+
+  for(let i=0;i<n;i++){
+    let year = Math.floor(Math.random()*(y2-y1+1))+y1;
+    let month = Math.floor(Math.random()*12)+1;
+    let day = Math.floor(Math.random()*28)+1;
+
+    let useGender = g === "both" ? (Math.random()<0.5?"male":"female") : g;
+    let ten = useGender === "female" ? rand(tenNu) : rand(tenNam);
+
+    let name = `${rand(ho)} Thị ${ten}`;
+    if(useGender === "male") name = `${rand(ho)} Văn ${ten}`;
+
+    let dob = `${String(day).padStart(2,"0")}/${String(month).padStart(2,"0")}/${year}`;
+
+    tbody.innerHTML += `<tr><td>${name}</td><td>${dob}</td></tr>`;
+    text += `${name}\t${dob}\n`;
+  }
+  output.value = text;
+}
+
+function copyData(){
+  let textarea = document.getElementById("output");
+  textarea.select();
+  document.execCommand("copy");
+  alert("✅ Đã copy! Dán vào Excel (Ctrl+V)");
+}
+</script>
 
 </body>
 </html>
-
